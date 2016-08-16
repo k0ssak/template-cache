@@ -21,9 +21,11 @@
       
       <p>So you have that your fancy App/Page/Site/Shop. Doesnt really matter. And you have some fancy javascript that does cool stuff but sometimes you hate that You see this blink before javascript does the work and turns your small green square into big red awesome square. Just like on this page. Just hit "refresh" few times and see what does JS do.</p>
       <p>Yes, the setTimeout is there on purpose. Yet for bigger projects the problem exists. It often bothers me that something blinks, hide, show etc. Inspired by https://glebbahmutov.com/blog/instant-web-application/ i wrote small service worker which delas with that problem.</p>
-      <p>Here: the same page with service worker (it still doesnt solve the first load problem, but hit "refresh" few times and you will see that there is no blinking and resizing.</p>
+      <p>Here: <a href="https://k0ssak.github.io/template-cache/fixed.html"></a>https://k0ssak.github.io/template-cache/fixed.html</a> the same page with service worker (it still doesnt solve the first load problem, but hit "refresh" few times and you will see that there is no blinking and resizing.</p>
       
+      <!-- sw-template-cache:amazing-square -->
       <div id="amazing-square"></div>
+      <!-- /sw-template-cache:amazing-square -->
     </main>
     
     <script>
@@ -33,8 +35,51 @@
       setTimeout(function () {
         square.style.backgroundColor = '#ff0000';
         square.style.width = '200px';
-        square.style.width = '200px';
+        square.style.height = '200px';
       }, 250);
+    </script>
+    
+    <script>
+      (function (undefined) {
+        var sendToSW;
+  
+        if (!window.navigator.serviceWorker) {
+            console.log('No Service Worker feature. Contuining normal work...');
+            return;
+        }
+  
+        this.navigator.serviceWorker.register('sw.js', {
+            scope: window.location.pathname
+        }).then(function(worker) {
+            if (worker.active) {
+                sendToSW = worker.active.postMessage.bind(worker.active);
+            }
+        });
+  
+        this.templateCache = {
+            cache: function(id) {
+                var html;
+                var el;
+  
+                el = document.getElementById(id);
+  
+                if (el && typeof sendToSW === 'function') {
+                    html = el.outerHTML;
+
+                    sendToSW({
+                        command: 'cacheObject',
+                        params: [id, html]
+                    })
+                }
+            },
+  
+            clear: function() {
+                sendToSW({
+                    command: 'clear'
+                });
+            }
+        };
+      }).call(window);
     </script>
   </body>
 </html>
