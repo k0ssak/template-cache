@@ -9,3 +9,5 @@ Withouot service worker: https://k0ssak.github.io/template-cache/
 With service worker: https://k0ssak.github.io/template-cache/fixed.html
 
 Just hit "refresh" few times on both sites and see the difference. (yep it still doesnt solve the first load problem)
+
+Ps. Works only with browsers that supports service workers (firefox 44+, chrome 40+, opera 27+)
