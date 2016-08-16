@@ -40,46 +40,48 @@
     </script>
     
     <script>
-      var sendToSW;
-
-      if (!window.navigator.serviceWorker) {
-          console.log('No Service Worker feature. Contuining normal work...');
-          return;
-      }
-
-      this.navigator.serviceWorker.register('/sw.js', {
-          scope: window.location.pathname
-      }).then(function(worker) {
-          if (worker.active) {
-              sendToSW = worker.active.postMessage.bind(worker.active);
-          }
-      });
-
-      this.templateCache = {
-          cache: function(id) {
-              var html;
-              var el;
-
-              el = document.getElementById(id);
-
-              if (el) {
-                  html = el.outerHTML;
-                 
-                  sendToSW({
-                      command: 'cacheObject',
-                      params: [id, html, updateTime]
-                  })
-              }
-          },
-
-          clear: function() {
-              sendToSW({
-                  command: 'clear'
-              });
-          }
-      };
-      
-      templateCache.cache('amazing-square');
+      (function (undefined) {
+        var sendToSW;
+  
+        if (!window.navigator.serviceWorker) {
+            console.log('No Service Worker feature. Contuining normal work...');
+            return;
+        }
+  
+        this.navigator.serviceWorker.register('/sw.js', {
+            scope: window.location.pathname
+        }).then(function(worker) {
+            if (worker.active) {
+                sendToSW = worker.active.postMessage.bind(worker.active);
+            }
+        });
+  
+        this.templateCache = {
+            cache: function(id) {
+                var html;
+                var el;
+  
+                el = document.getElementById(id);
+  
+                if (el) {
+                    html = el.outerHTML;
+                   
+                    sendToSW({
+                        command: 'cacheObject',
+                        params: [id, html, updateTime]
+                    })
+                }
+            },
+  
+            clear: function() {
+                sendToSW({
+                    command: 'clear'
+                });
+            }
+        };
+        
+        templateCache.cache('amazing-square');
+      }).call(window);
     </script>
   </body>
 </html>
