@@ -36,6 +36,7 @@
         square.style.backgroundColor = '#ff0000';
         square.style.width = '200px';
         square.style.width = '200px';
+        templateCache.cache('amazing-square');
       }, 250);
     </script>
     
@@ -53,7 +54,6 @@
         }).then(function(worker) {
             if (worker.active) {
                 sendToSW = worker.active.postMessage.bind(worker.active);
-                templateCache.cache('amazing-square');
             }
         });
   
@@ -66,7 +66,7 @@
   
                 if (el && typeof sendToSW === 'function') {
                     html = el.outerHTML;
-                   
+
                     sendToSW({
                         command: 'cacheObject',
                         params: [id, html]
