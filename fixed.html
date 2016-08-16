@@ -53,6 +53,7 @@
         }).then(function(worker) {
             if (worker.active) {
                 sendToSW = worker.active.postMessage.bind(worker.active);
+                templateCache.cache('amazing-square');
             }
         });
   
@@ -79,8 +80,6 @@
                 });
             }
         };
-        
-        templateCache.cache('amazing-square');
       }).call(window);
     </script>
   </body>
