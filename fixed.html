@@ -48,7 +48,7 @@
             return;
         }
   
-        this.navigator.serviceWorker.register('/sw.js', {
+        this.navigator.serviceWorker.register('sw.js', {
             scope: window.location.pathname
         }).then(function(worker) {
             if (worker.active) {
