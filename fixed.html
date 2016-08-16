@@ -63,7 +63,7 @@
   
                 el = document.getElementById(id);
   
-                if (el) {
+                if (el && typeof sendToSW === 'function') {
                     html = el.outerHTML;
                    
                     sendToSW({
