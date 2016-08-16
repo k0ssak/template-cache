@@ -19,9 +19,9 @@
       <h1 class="project-name">template-cache</h1>
       <h2 class="project-tagline">Cache parts of template using service worker.</h2>
       
-      <p>So you have that your fancy App/Page/Site/Shop. Doesnt really matter. And you have some fancy javascript that does cool stuff but sometimes you hate that You see this blink before javascript does the work and turns your small green square into big red awesome square. Just like on this page. Just hit "refresh" few times and see what does JS do.</p>
-      <p>Yes, the setTimeout is there on purpose. Yet for bigger projects the problem exists. It often bothers me that something blinks, hide, show etc. Inspired by https://glebbahmutov.com/blog/instant-web-application/ i wrote small service worker which delas with that problem.</p>
-      <p>Here: <a href="https://k0ssak.github.io/template-cache/fixed.html"></a>https://k0ssak.github.io/template-cache/fixed.html</a> the same page with service worker (it still doesnt solve the first load problem, but hit "refresh" few times and you will see that there is no blinking and resizing.</p>
+      <p>So you have that your fancy App/Page/Site/Shop. Doesnt really matter. And you have some fancy javascript that does cool stuff but sometimes you hate that blink before javascript does the work and turns your small green square into big red awesome square. Just like on this page. Just hit "refresh" few times and see what does JS do.</p>
+      <p>Yes, the setTimeout is there on purpose. Yet for bigger projects the problem exists. It often bothers me that something blinks, hidew, showw etc. Inspired by https://glebbahmutov.com/blog/instant-web-application/ i wrote small service worker which delas with that problem.</p>
+      <p>Here: <a href="https://k0ssak.github.io/template-cache/fixed.html">https://k0ssak.github.io/template-cache/fixed.html</a> the same page with service worker (it still doesnt solve the first load problem, but hit "refresh" few times and you will see that there is no blinking and resizing.</p>
       
       <!-- sw-template-cache:amazing-square -->
       <div id="amazing-square"></div>
@@ -36,6 +36,7 @@
         square.style.backgroundColor = '#ff0000';
         square.style.width = '200px';
         square.style.height = '200px';
+        templateCache.cache('amazing-square');
       }, 250);
     </script>
     
